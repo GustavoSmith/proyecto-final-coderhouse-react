@@ -1,37 +1,75 @@
 import React, { useState, useEffect } from 'react';
 import ItemList from './ItemList';
+import Contacto from '../Contacto';
 import products from '../../utils/products.json';
+import { useParams } from 'react-router-dom';
+
+const categoryFilter = (catId) => {
+  const criteria = {
+    all: () => true,
+    ofertas: (product) => product.onSale === true,
+    ultimasunidades: (product) => product.stock <= 5,
+  };
+  return criteria[catId] || criteria.all;
+};
 
 const ItemListContainer = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [listProducts, setListProducts] = useState([]);
+  let { catId } = useParams();
 
-  const getProducts = async () => {
-    try {
-      const response = await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(products);
-        }, 2000);
-      });
+  if (catId !== 'contacto') {
+    const [isLoading, setIsLoading] = useState(true);
+    const [listProducts, setListProducts] = useState([]);
+    const [searchField, setSearchField] = useState('');
+    const searchResults = (details) =>
+      details.filter((prod) => prod.title.toLowerCase().includes(searchField.toLowerCase()));
 
-      setListProducts(response);
-      setIsLoading(false);
-    } catch (e) {
-      console.error(e);
+    const handleChange = (e) => setSearchField(e.target.value);
+
+    const getProducts = async () => {
+      try {
+        const response = await new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(products);
+          }, 2000);
+        });
+
+        setListProducts(response);
+        setIsLoading(false);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    useEffect(() => {
+      getProducts();
+    }, []);
+
+    let content = 'Cargando...';
+
+    if (!isLoading) {
+      const productsByCategory = listProducts.filter(categoryFilter(catId));
+      content = <ItemList dataProducts={searchResults(productsByCategory)} />;
     }
-  };
 
-  useEffect(() => {
-    getProducts();
-  }, []);
-
-  let content = 'Cargando...';
-
-  if (!isLoading) {
-    content = <ItemList dataProducts={listProducts} />;
+    return (
+      <div className="p-16 flex flex-col text-center min-h-[90vh]">
+        <section className="flex flex-col items-center gap-8">
+          <h1 className="text-4xl">Smith Store</h1>
+          <div className="mb-8">
+            <input
+              className="border-2 border-black w-64 h-10 rounded-xl px-4"
+              type="search"
+              placeholder="Busque su producto..."
+              onChange={handleChange}
+            />
+          </div>
+        </section>
+        {content}
+      </div>
+    );
+  } else {
+    return <Contacto />;
   }
-
-  return <div className="p-16 flex justify-center">{content}</div>;
 };
 
 export default ItemListContainer;

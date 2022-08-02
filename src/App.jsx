@@ -1,14 +1,22 @@
 import React from 'react';
-import { Navbar, Footer, ItemListContainer } from './components';
+import { useRoutes } from 'react-router-dom';
+import { Navbar, ItemListContainer, ItemDetailContainer, NotFound, Footer } from './components';
+
+const Routes = () =>
+  useRoutes([
+    { path: '/', element: <ItemListContainer /> },
+    { path: '/category/:catId', element: <ItemListContainer /> },
+    { path: '/item/:prodId', element: <ItemDetailContainer /> },
+    { path: '*', element: <NotFound /> },
+  ]);
 
 const App = () => {
   return (
-    <div className="App">
+    <>
       <Navbar />
-      <ItemListContainer />
-      <h1>Smith Store</h1>
+      <Routes />
       <Footer />
-    </div>
+    </>
   );
 };
 

@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const NavbarElem = ({ href, name }) => {
+const NavbarElem = ({ name, id }) => {
   const elemStyle = 'hover:bg-gray-700 text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium block';
   return (
-    <a href={href} className={elemStyle}>
+    <Link to={`/category/${id}`} className={elemStyle} >
       {name}
-    </a>
+    </Link>
   );
 };
 

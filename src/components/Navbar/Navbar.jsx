@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Transition } from '@headlessui/react';
 import { IconContext } from 'react-icons';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 import Logo from '../Icons/MainLogo';
 import NavbarElem from './NavbarElem';
 import CartWidget from './CartWidget';
@@ -10,24 +11,24 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef();
   const sectionData = [
-    { name: 'Todos los componentes', href: '#' },
-    { name: 'Ofertas', href: '#' },
-    { name: 'Armá tu PC', href: '#' },
-    { name: 'Contacto', href: '#' },
+    { name: 'Todos los componentes', id: 'all' },
+    { name: 'Ofertas', id: 'ofertas' },
+    { name: 'Últimas unidades', id: 'ultimasunidades' },
+    { name: 'Contacto', id: 'contacto' },
   ];
   const navElems = [];
 
-  sectionData.map((e) => navElems.push(<NavbarElem name={e.name} href={e.href} key={e.name} />));
+  sectionData.map((e) => navElems.push(<NavbarElem name={e.name} id={e.id} key={e.id} />));
 
   return (
     <>
       <div>
         <nav className="bg-gray-800">
           <div className="flex justify-between items-center max-w-7xl mx-auto px-2 sm:px-3 md:px-6 lg:px-8">
-            <a href="#" className="inline-flex items-center py-2">
+            <Link className="inline-flex items-center py-2" to="/">
               <Logo width={60} height={60} />
               <h2 className="text-white">Smith PCs</h2>
-            </a>
+            </Link>
             <div className="flex items-center justify-between h-16">
               <div className="flex items-center">
                 <div className="hidden md:block">
