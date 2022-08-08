@@ -1,4 +1,5 @@
 import React from 'react';
+import ItemCount from '../ItemCount';
 
 const ItemDetail = ({ product }) => {
   const { title, image, price, description, stock } = product;
@@ -15,9 +16,7 @@ const ItemDetail = ({ product }) => {
         </div>
         <div className="flex justify-between flex-col gap-4 sm:flex-row md:flex-col">
           <p className="text-2xl underline-">Precio: ${price}</p>
-          <div>
-            <button className="rounded-md border border-black border-solid px-4">Comprar</button>
-          </div>
+          <ItemCount product={product} />
         </div>
       </div>
     </section>
