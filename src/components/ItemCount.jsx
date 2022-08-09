@@ -33,7 +33,7 @@ const ItemCount = ({ product }) => {
           </Link>
         ) : (
           <button onClick={finishPurchase} className="rounded-md border border-black border-solid px-6 my-2">
-            Comprar
+            Agregar al carrito
           </button>
         )}
       </div>
