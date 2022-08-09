@@ -5,23 +5,31 @@ export const CartContext = createContext();
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
+  const checkStock = (productInCart, product) => {
+    if (productInCart.quantity + product.quantity > productInCart.stock) {
+      alert(
+        `No hay stock suficiente. La cantidad máxima permitida de este producto es de ${productInCart.stock} unidades.`
+      );
+      return productInCart;
+    }
+    return {
+      ...productInCart,
+      quantity: productInCart.quantity + product.quantity,
+    };
+  };
+
   const addToCart = (product) => {
     const isProductInCart = cart.find((productInCart) => productInCart.id === product.id);
+    let cartArray = [];
+
     if (isProductInCart) {
-      const newArray = cart.map((productInCart) => {
-        if (productInCart.id === product.id) {
-          return {
-            ...productInCart,
-            quantity: productInCart.quantity + product.quantity,
-          };
-        } else {
-          return productInCart;
-        }
-      });
-      setCart(newArray);
+      cartArray = cart.map((productInCart) =>
+        productInCart.id === product.id ? checkStock(productInCart, product) : productInCart
+      );
     } else {
-      setCart([...cart, product]);
+      cartArray = [...cart, product];
     }
+    setCart(cartArray);
   };
 
   const clear = () => setCart([]);
