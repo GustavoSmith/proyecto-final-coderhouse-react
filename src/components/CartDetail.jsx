@@ -4,6 +4,14 @@ import { CartContext } from '../context/CartContext';
 
 const CartDetail = () => {
   const { cart, removeFromCart, clear } = useContext(CartContext);
+
+  const checkout = () => {
+    // TODO: Verificar si el stock de los productos satisfacen el pedido de compra
+    const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    alert(`Total: $${totalPrice}. Muchas gracias!`);
+    clear();
+  };
+
   return (
     <div className="container mx-auto mt-10">
       <div className="flex shadow-md my-10">
@@ -46,7 +54,13 @@ const CartDetail = () => {
             <button onClick={clear}>Limpiar</button>
           </div>
           <div className="flex justify-end">
-            <button className="border rounded-3xl px-8 py-3 bg-blue-600 text-white">Finalizar compra</button>
+            <button
+              onClick={checkout}
+              className="border rounded-3xl px-8 py-3 bg-blue-600 text-white disabled:bg-gray-400 disabled:cursor-not-allowed"
+              disabled={cart.length === 0}
+            >
+              Finalizar compra
+            </button>
           </div>
         </div>
       </div>
