@@ -6,7 +6,7 @@ const ItemDetail = ({ product }) => {
   return (
     <section className="grid grid-rows-10 md:grid-cols-10 justify-center my-20 gap-8 min-h-[68vh]">
       <div className="row-span-7 md:col-span-6 w-[75vw] md:w-auto mx-auto">
-        <img src={`/assets/products/${image}`} alt={title} className="mx-auto" />
+        <img src={`/proyecto-final-coderhouse-react/assets/products/${image}`} alt={title} className="mx-auto" />
       </div>
       <div className="row-span-3 md:col-span-4 text-center flex flex-col gap-4 px-8 md:justify-evenly">
         <h1 className="text-3xl">{title}</h1>

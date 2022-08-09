@@ -7,7 +7,7 @@ const ItemProduct = ({ product }) => {
 
   return (
     <div className="mx-4 p-2 flex flex-col items-center sm:justify-between sm:h-[430px] border-blue-300 border-4 rounded-3xl">
-      <img src={`/assets/products/${image}`} alt={`Imagen ${title}`} className="w-96 md:w-64" />
+      <img src={`/proyecto-final-coderhouse-react/assets/products/${image}`} alt={`Imagen ${title}`} className="w-96 md:w-64" />
       <div className="flex flex-col items-center">
         <p>{title}</p>
         <p>$ {price}</p>
