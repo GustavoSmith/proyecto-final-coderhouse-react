@@ -44,12 +44,7 @@ const ItemListContainer = () => {
       getProducts();
     }, []);
 
-    let content = 'Cargando...';
-
-    if (!isLoading) {
-      const productsByCategory = listProducts.filter(categoryFilter(catId));
-      content = <ItemList dataProducts={searchResults(productsByCategory)} />;
-    }
+    const productsByCategory = listProducts.filter(categoryFilter(catId));
 
     return (
       <div className="p-16 flex flex-col text-center min-h-[90vh]">
@@ -64,7 +59,15 @@ const ItemListContainer = () => {
             />
           </div>
         </section>
-        {content}
+        {isLoading ? (
+          <div className="flex justify-center items-center">
+            <div className="w-12 h-12 rounded-full border-4 border-solid border-blue-200 border-l-blue-500 animate-spin">
+              <span className="sr-only">Cargando...</span>
+            </div>
+          </div>
+        ) : (
+          <ItemList dataProducts={searchResults(productsByCategory)} />
+        )}
       </div>
     );
   } else {
