@@ -42,7 +42,8 @@ const ItemListContainer = () => {
 
     useEffect(() => {
       getProducts();
-    }, []);
+      setSearchField('');
+    }, [catId]);
 
     const productsByCategory = listProducts.filter(categoryFilter(catId));
 
@@ -54,6 +55,7 @@ const ItemListContainer = () => {
             <input
               className="border-2 border-black w-64 h-10 rounded-xl px-4"
               type="search"
+              value={searchField}
               placeholder="Busque su producto..."
               onChange={handleChange}
             />
