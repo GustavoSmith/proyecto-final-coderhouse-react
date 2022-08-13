@@ -16,7 +16,9 @@ const ItemDetail = ({ product }) => {
         </div>
         <div className="flex justify-between flex-col gap-4 sm:flex-row md:flex-col">
           <p className="text-2xl underline-">Precio: ${price}</p>
-          <ItemCount product={product} />
+          <div className='flex flex-col justify-center items-center'>
+            <ItemCount product={product} />
+          </div>
         </div>
       </div>
     </section>

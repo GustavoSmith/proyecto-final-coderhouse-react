@@ -50,10 +50,10 @@ const ItemListContainer = () => {
     return (
       <div className="p-16 flex flex-col text-center min-h-[90vh]">
         <section className="flex flex-col items-center gap-8">
-          <h1 className="text-4xl">Smith Store</h1>
+          <h1 className="text-4xl font-semibold">Smith Store</h1>
           <div className="mb-8">
             <input
-              className="border-2 border-black w-64 h-10 rounded-xl px-4"
+              className="bg-gray-800 text-white placeholder:text-white rounded-full border-none outline-none w-64 h-10 px-4 font-semibold"
               type="search"
               value={searchField}
               placeholder="Busque su producto..."

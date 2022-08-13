@@ -19,24 +19,24 @@ const ItemCount = ({ product }) => {
     }
   };
 
+  const purchaseBtnStyle = 'rounded-xl border border-black border-solid px-6 my-2';
+
   return (
     <>
-      <div>
-        <div className="flex justify-center gap-4">
-          <button onClick={() => changeNumber(-1)}>-</button>
-          <p>{contador}</p>
-          <button onClick={() => changeNumber(1)}>+</button>
-        </div>
-        {purchaseFlag ? (
-          <Link to={'/cart'}>
-            <button className="rounded-md border border-black border-solid px-6 my-2">Finalizar compra</button>
-          </Link>
-        ) : (
-          <button onClick={finishPurchase} className="rounded-md border border-black border-solid px-6 my-2">
-            Agregar al carrito
-          </button>
-        )}
+      <div className="flex justify-between border bg-blue-600 text-white font-medium rounded-full w-32 px-4">
+        <button onClick={() => changeNumber(-1)}>-</button>
+        <p>{contador}</p>
+        <button onClick={() => changeNumber(1)}>+</button>
       </div>
+      {purchaseFlag ? (
+        <Link to={'/cart'}>
+          <button className={purchaseBtnStyle}>Finalizar compra</button>
+        </Link>
+      ) : (
+        <button onClick={finishPurchase} className={purchaseBtnStyle}>
+          Agregar al carrito
+        </button>
+      )}
     </>
   );
 };
