@@ -1,7 +1,6 @@
 {
-  "homepage": "https://gustavosmith.github.io/proyecto-final-coderhouse-react",
   "name": "proyecto-final-coderhouse-react",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@headlessui/react": "^1.6.6",

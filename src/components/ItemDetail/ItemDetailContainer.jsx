@@ -24,10 +24,15 @@ const ItemDetailContainer = () => {
       firstUpdate.current = false; //Evito que se ejecute la primera vez
       return;
     } else {
-      getProduct(prodId).then((prod) => {
-        setProduct(prod);
-        setIsLoading(false);
-      });
+      getProduct(prodId)
+        .then((prod) => {
+          setProduct(prod);
+          setIsLoading(false);
+        })
+        .catch((e) => {
+          setIsLoading(false);
+          console.error(e);
+        });
     }
   }, [prodId]);
 

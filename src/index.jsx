@@ -19,7 +19,7 @@ initializeApp(firebaseConfig);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <StrictMode>
-    <BrowserRouter basename="/proyecto-final-coderhouse-react">
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </StrictMode>
