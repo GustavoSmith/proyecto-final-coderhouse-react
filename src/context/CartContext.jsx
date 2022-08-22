@@ -2,8 +2,13 @@ import React, { useState, createContext } from 'react';
 
 export const CartContext = createContext();
 
+const getInitialState = () => {
+  const productsInCart = localStorage.getItem('productsInCart');
+  return productsInCart ? JSON.parse(productsInCart) : [];
+};
+
 const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(getInitialState());
 
   const checkStock = (productInCart, product) => {
     if (productInCart.quantity + product.quantity > productInCart.stock) {
@@ -30,13 +35,27 @@ const CartProvider = ({ children }) => {
       cartArray = [...cart, product];
     }
     setCart(cartArray);
+    localStorage.setItem('productsInCart', JSON.stringify(cartArray));
   };
 
-  const clear = () => setCart([]);
+  const clear = () => {
+    setCart([]);
+    localStorage.removeItem('productsInCart');
+  };
 
-  const removeFromCart = (id) => setCart(cart.filter((product) => product.id !== id));
+  const removeFromCart = (id) => {
+    const modifiedCart = cart.filter((product) => product.id !== id);
+    setCart(modifiedCart);
+    localStorage.setItem('productsInCart', JSON.stringify(modifiedCart));
+  };
 
-  return <CartContext.Provider value={{ cart, addToCart, clear, removeFromCart }}>{children}</CartContext.Provider>;
+  const totalPrice = () => cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+  return (
+    <CartContext.Provider value={{ cart, addToCart, clear, removeFromCart, totalPrice }}>
+      {children}
+    </CartContext.Provider>
+  );
 };
 
 export default CartProvider;

@@ -1,6 +1,6 @@
 # Smith PC: un E-Commerce hecho en React
 
-Se utilizó PostCSS, ESLint, TailwindCSS, React Icons y Headless UI, además de React Router para la navegación.
+Se utilizó PostCSS, ESLint, TailwindCSS, Luxon.js, SweetAlert2, React Icons y Headless UI, además de React Router para la navegación.
 
 # Getting Started with Create React App
 

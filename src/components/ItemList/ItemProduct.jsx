@@ -6,7 +6,7 @@ const ItemProduct = ({ product }) => {
   const { id, title, image, price } = product;
 
   return (
-    <div className="mx-4 p-2 flex flex-col items-center sm:justify-between sm:h-[430px] border-blue-300 border-4 rounded-3xl">
+    <div className="mx-4 flex flex-col items-center rounded-3xl border-4 border-blue-300 p-2 sm:h-[430px] sm:justify-between">
       <img
         src={`/proyecto-final-coderhouse-react/assets/products/${image}`}
         alt={`Imagen ${title}`}
@@ -16,7 +16,7 @@ const ItemProduct = ({ product }) => {
         <p>{title}</p>
         <p>$ {price}</p>
         <Link to={`/item/${id}`}>
-          <button className="rounded-full border border-black border-solid px-6 my-2">Ver detalles</button>
+          <button className="my-2 rounded-full border border-solid border-black px-6">Ver detalles</button>
         </Link>
         <ItemCount product={product} />
       </div>

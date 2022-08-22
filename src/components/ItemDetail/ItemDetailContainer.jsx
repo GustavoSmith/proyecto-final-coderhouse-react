@@ -1,14 +1,41 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import products from '../../utils/products.json';
+import Spinner from '../Spinner';
 import NotFound from '../NotFound';
 import ItemDetail from './ItemDetail';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
+
+const getProduct = async (prodId) => {
+  const db = getFirestore();
+  const docRef = doc(db, 'products', prodId);
+  const docSnap = await getDoc(docRef);
+  return { id: prodId, ...docSnap.data() };
+};
 
 const ItemDetailContainer = () => {
   let { prodId } = useParams();
-  const prod = products.find((product) => product.id === Number(prodId));
 
-  return prod ? <ItemDetail product={prod} /> : <NotFound />;
+  const [product, setProduct] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const firstUpdate = useRef(true);
+
+  useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false; //Evito que se ejecute la primera vez
+      return;
+    } else {
+      getProduct(prodId).then((prod) => {
+        setProduct(prod);
+        setIsLoading(false);
+      });
+    }
+  }, [prodId]);
+
+  return (
+    <div className="flex min-h-[86vh] flex-col items-center justify-center p-16">
+      {isLoading ? <Spinner /> : product ? <ItemDetail product={product} /> : <NotFound />}
+    </div>
+  );
 };
 
 export default ItemDetailContainer;

@@ -1,80 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import ItemList from './ItemList';
-import Contacto from '../Contacto';
-import products from '../../utils/products.json';
+import Spinner from '../Spinner';
 import { useParams } from 'react-router-dom';
-
-const categoryFilter = (catId) => {
-  const criteria = {
-    all: () => true,
-    ofertas: (product) => product.onSale === true,
-    ultimasunidades: (product) => product.stock <= 5,
-  };
-  return criteria[catId] || criteria.all;
-};
+import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
 
 const ItemListContainer = () => {
   let { catId } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const [listProducts, setListProducts] = useState([]);
+  const [searchField, setSearchField] = useState('');
+  const searchResults = (details) =>
+    details.filter((prod) => prod.title.toLowerCase().includes(searchField.toLowerCase()));
 
-  if (catId !== 'contacto') {
-    const [isLoading, setIsLoading] = useState(true);
-    const [listProducts, setListProducts] = useState([]);
-    const [searchField, setSearchField] = useState('');
-    const searchResults = (details) =>
-      details.filter((prod) => prod.title.toLowerCase().includes(searchField.toLowerCase()));
+  const handleChange = (e) => setSearchField(e.target.value);
 
-    const handleChange = (e) => setSearchField(e.target.value);
+  const getProducts = async () => {
+    try {
+      const db = getFirestore();
+      const productsCollection = collection(db, 'products');
+      const criteria = {
+        all: productsCollection,
+        ofertas: query(productsCollection, where('onSale', '==', true)),
+        ultimasunidades: query(productsCollection, where('stock', '<', 5)),
+      };
 
-    const getProducts = async () => {
-      try {
-        const response = await new Promise((resolve) => {
-          setTimeout(() => {
-            resolve(products);
-          }, 2000);
-        });
+      const filteredProducts = criteria[catId] || criteria.all;
+      const products = [];
+      const { docs } = await getDocs(filteredProducts);
+      docs.map((doc) => products.push({ id: doc.id, ...doc.data() }));
+      setListProducts(products);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-        setListProducts(response);
-        setIsLoading(false);
-      } catch (e) {
-        console.error(e);
-      }
-    };
+  useEffect(() => {
+    getProducts();
+    setSearchField('');
+  }, [catId]);
 
-    useEffect(() => {
-      getProducts();
-      setSearchField('');
-    }, [catId]);
-
-    const productsByCategory = listProducts.filter(categoryFilter(catId));
-
-    return (
-      <div className="p-16 flex flex-col text-center min-h-[90vh]">
-        <section className="flex flex-col items-center gap-8">
-          <h1 className="text-4xl font-semibold">Smith Store</h1>
-          <div className="mb-8">
-            <input
-              className="bg-gray-800 text-white placeholder:text-white rounded-full border-none outline-none w-64 h-10 px-4 font-semibold"
-              type="search"
-              value={searchField}
-              placeholder="Busque su producto..."
-              onChange={handleChange}
-            />
-          </div>
-        </section>
-        {isLoading ? (
-          <div className="flex justify-center items-center">
-            <div className="w-12 h-12 rounded-full border-4 border-solid border-blue-200 border-l-blue-500 animate-spin">
-              <span className="sr-only">Cargando...</span>
-            </div>
-          </div>
-        ) : (
-          <ItemList dataProducts={searchResults(productsByCategory)} />
-        )}
-      </div>
-    );
-  } else {
-    return <Contacto />;
-  }
+  return (
+    <div className="flex min-h-[85vh] flex-col p-16 text-center">
+      <section className="flex flex-col items-center gap-8">
+        <h1 className="text-4xl font-semibold">Smith Store</h1>
+        <div className="mb-8">
+          <input
+            className="h-10 w-64 rounded-full border-none bg-gray-800 px-4 font-semibold text-white outline-none placeholder:text-white"
+            type="search"
+            value={searchField}
+            placeholder="Busque su producto..."
+            onChange={handleChange}
+          />
+        </div>
+      </section>
+      {isLoading ? <Spinner /> : <ItemList dataProducts={searchResults(listProducts)} />}
+    </div>
+  );
 };
 
 export default ItemListContainer;
