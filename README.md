@@ -1,6 +1,13 @@
 # Smith PC: un E-Commerce hecho en React
 
-Se utilizó PostCSS, ESLint, TailwindCSS, Luxon.js, SweetAlert2, React Icons y Headless UI, además de React Router para la navegación.
+Se utilizó React Hooks para el manejo de estados y React Context para el manejo de las variables globales.
+
+Se utilizó PostCSS y TailwindCSS para los estilos, junto a React Icons y Headless UI.
+Se hace uso de la librería SweetAlert2 para las alertas y de Luxon para el manejo de fechas.
+
+Para la navegación y enrutado, se usó React Router.
+
+Podés ver la página en vivo acá: https://smith-store.netlify.app/
 
 # Getting Started with Create React App
 

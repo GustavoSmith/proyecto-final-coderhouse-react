@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 
 const Contacto = () => {
   const {
@@ -7,8 +8,28 @@ const Contacto = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data); // TODO: Definir que hacer con la información del formulario
+  const onSubmit = ({ inputName, inputSurname, inputMail, inputMessage, inputPhone, inputZip }) => {
+    Swal.fire({
+      title: 'Muchas gracias por contactarnos',
+      text: `Le responderemos a la brevedad, ${inputName}.`,
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+      background: '#19191a',
+      color: '#fff',
+    });
+
+    const msg = {
+      Nombre: `${inputName} ${inputSurname}`,
+      Mail: inputMail,
+      Mensaje: inputMessage,
+      Teléfono: inputPhone,
+      CP: inputZip || 'No tiene',
+    };
+
+    const messages = localStorage.getItem('messages') || '[]';
+    const messagesArray = JSON.parse(messages);
+    messagesArray.push(msg);
+    localStorage.setItem('messages', JSON.stringify(messagesArray));
   };
 
   return (
@@ -20,7 +41,7 @@ const Contacto = () => {
       <form className="m-auto grid w-[60vw] grid-cols-1 gap-8 md:grid-cols-12" onSubmit={handleSubmit(onSubmit)}>
         <label
           htmlFor="inputName"
-          className="col-span-1 flex flex-col gap-2 text-xs font-bold text-blue-600 md:col-span-6"
+          className="col-span-1 flex flex-col gap-2 text-xs font-semibold text-blue-600 md:col-span-6"
         >
           Nombre*
           <input
@@ -42,7 +63,7 @@ const Contacto = () => {
 
         <label
           htmlFor="inputSurname"
-          className="col-span-1 flex flex-col gap-2 text-xs font-bold text-blue-600 md:col-span-6"
+          className="col-span-1 flex flex-col gap-2 text-xs font-semibold text-blue-600 md:col-span-6"
         >
           Apellido*
           <input
@@ -64,7 +85,7 @@ const Contacto = () => {
 
         <label
           htmlFor="inputMail"
-          className="col-span-1 flex flex-col gap-2 text-xs font-bold text-blue-600 md:col-span-4"
+          className="col-span-1 flex flex-col gap-2 text-xs font-semibold text-blue-600 md:col-span-4"
         >
           E-mail*
           <input
@@ -86,7 +107,7 @@ const Contacto = () => {
 
         <label
           htmlFor="inputPhone"
-          className="col-span-1 flex flex-col gap-2 text-xs font-bold text-blue-600 md:col-span-4"
+          className="col-span-1 flex flex-col gap-2 text-xs font-semibold text-blue-600 md:col-span-4"
         >
           Teléfono*
           <input
@@ -108,7 +129,7 @@ const Contacto = () => {
 
         <label
           htmlFor="inputZip"
-          className="col-span-1 flex flex-col gap-2 text-xs font-bold text-blue-600 md:col-span-4"
+          className="col-span-1 flex flex-col gap-2 text-xs font-semibold text-blue-600 md:col-span-4"
         >
           Código Postal
           <input
@@ -129,7 +150,7 @@ const Contacto = () => {
 
         <label
           htmlFor="inputMessage"
-          className="col-span-1 flex flex-col gap-2 text-xs font-bold text-blue-600 md:col-span-12"
+          className="col-span-1 flex flex-col gap-2 text-xs font-semibold text-blue-600 md:col-span-12"
         >
           Mensaje*
           <textarea
