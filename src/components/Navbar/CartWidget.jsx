@@ -14,7 +14,7 @@ const CartWidget = ({ mobile }) => {
           <BsCart2 />
         </IconContext.Provider>
         {cartQuantity > 0 ? (
-          <span className="text-white bg-blue-700 rounded-full px-2 text-sm hover:animate-bounce">{cartQuantity}</span>
+          <span className="text-bold rounded-full bg-blue-700 px-2 text-sm text-white">{cartQuantity}</span>
         ) : null}
       </button>
     </Link>

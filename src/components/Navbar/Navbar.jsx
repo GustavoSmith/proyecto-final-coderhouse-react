@@ -26,7 +26,7 @@ const Navbar = () => {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-2 sm:px-3 md:px-6 lg:px-8">
           <Link className="inline-flex items-center py-2" to="/">
             <Logo width={60} height={60} />
-            <h2 className="text-white">Smith Store</h2>
+            <h2 className="text-xl font-semibold text-white">Smith Store</h2>
           </Link>
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center">

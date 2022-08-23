@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
+import { DateTime } from 'luxon';
 
 const Contacto = () => {
   const {
@@ -24,6 +25,7 @@ const Contacto = () => {
       Mensaje: inputMessage,
       Teléfono: inputPhone,
       CP: inputZip || 'No tiene',
+      fecha: DateTime.now().toLocaleString({ locale: 'es', ...DateTime.DATE_FULL }),
     };
 
     const messages = localStorage.getItem('messages') || '[]';

@@ -10,6 +10,7 @@ const getInitialState = () => {
 
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(getInitialState());
+  let modalFlag = true;
 
   const checkStock = (productInCart, product) => {
     if (productInCart.quantity + product.quantity > productInCart.stock) {
@@ -21,6 +22,7 @@ const CartProvider = ({ children }) => {
         background: '#19191a',
         color: '#fff',
       });
+      modalFlag = false;
       return productInCart;
     }
     return {
@@ -40,8 +42,27 @@ const CartProvider = ({ children }) => {
     } else {
       cartArray = [...cart, product];
     }
+    if (modalFlag) {
+      Swal.fire({
+        toast: true,
+        icon: 'success',
+        title: 'Producto añadido al carrito',
+        position: 'top-end',
+        customClass: {
+          timerProgressBar: 'bg-blue-300',
+        },
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer);
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        },
+      });
+    }
     setCart(cartArray);
     localStorage.setItem('productsInCart', JSON.stringify(cartArray));
+    modalFlag = true;
   };
 
   const clear = () => {

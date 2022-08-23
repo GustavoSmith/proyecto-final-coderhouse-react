@@ -23,7 +23,7 @@ const ItemCount = ({ product }) => {
 
   return (
     <>
-      <div className="flex justify-between border bg-blue-600 text-white font-medium rounded-full w-32 px-4">
+      <div className="flex w-32 justify-between rounded-full border bg-blue-600 px-4 font-medium text-white">
         <button onClick={() => changeNumber(-1)}>-</button>
         <p>{contador}</p>
         <button onClick={() => changeNumber(1)}>+</button>
