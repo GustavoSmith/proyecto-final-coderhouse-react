@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Spinner from '../Spinner';
 import NotFound from '../NotFound';
@@ -17,23 +17,17 @@ const ItemDetailContainer = () => {
 
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const firstUpdate = useRef(true);
 
   useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false; //Evito que se ejecute la primera vez
-      return;
-    } else {
-      getProduct(prodId)
-        .then((prod) => {
-          setProduct(prod);
-          setIsLoading(false);
-        })
-        .catch((e) => {
-          setIsLoading(false);
-          console.error(e);
-        });
-    }
+    getProduct(prodId)
+      .then((prod) => {
+        setProduct(prod);
+        setIsLoading(false);
+      })
+      .catch((e) => {
+        setIsLoading(false);
+        console.error(e);
+      });
   }, [prodId]);
 
   return (
