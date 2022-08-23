@@ -43,7 +43,7 @@ const ItemListContainer = () => {
   return (
     <div className="flex min-h-[85vh] flex-col p-16 text-center">
       <section className="flex flex-col items-center gap-8">
-        <h1 className="text-4xl font-semibold">Smith Store</h1>
+        <h1 className="text-4xl font-bold uppercase">Smith Store</h1>
         <div className="mb-8">
           <input
             className="h-10 w-64 rounded-full border-none bg-gray-800 px-4 font-semibold text-white outline-none placeholder:text-white"
