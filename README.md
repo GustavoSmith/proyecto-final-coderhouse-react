@@ -7,6 +7,8 @@ Se hace uso de la librería SweetAlert2 para las alertas y de Luxon para el mane
 
 Para la navegación y enrutado, se usó React Router.
 
+Para el manejo de la base de datos, se usó Firebase.
+
 Podés ver la página en vivo acá: https://smith-store.netlify.app/
 
 # Getting Started with Create React App
