@@ -3,7 +3,7 @@
 Se utilizó React Hooks para el manejo de estados y React Context para el manejo de las variables globales.
 
 Se utilizó PostCSS y TailwindCSS para los estilos, junto a React Icons y Headless UI.
-Se hace uso de la librería SweetAlert2 para las alertas y de Luxon para el manejo de fechas.
+Se hace uso de la librería SweetAlert2 para las alertas, de Luxon para el manejo de fechas y de React Hook Form para la validación de formularios.
 
 Para la navegación y enrutado, se usó React Router.
 
