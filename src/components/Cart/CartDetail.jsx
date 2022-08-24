@@ -19,7 +19,7 @@ const CartDetail = () => {
               </div>
               <div className="my-8 flex gap-4">
                 <h3 className="w-2/5 text-center text-xs font-semibold text-gray-500">PRODUCTO</h3>
-                <h3 className="w-1/5 text-center text-xs font-semibold text-gray-500">PRECIO</h3>
+                <h3 className="w-1/5 text-center text-xs font-semibold text-gray-500 ">PRECIO</h3>
                 <h3 className="w-1/5 text-center text-xs font-semibold text-gray-500">CANTIDAD</h3>
                 <h3 className="w-1/5 text-center text-xs font-semibold text-gray-500">TOTAL</h3>
               </div>
@@ -40,9 +40,13 @@ const CartDetail = () => {
                       </div>
                     </div>
                   </div>
-                  <span className="w-1/5 text-center text-sm font-semibold">${numberFormat.format(product.price)}</span>
+                  <span className="w-1/5 break-words text-center text-sm font-semibold">
+                    ${numberFormat.format(product.price)}
+                  </span>
                   <span className="w-1/5 text-center text-sm font-semibold">{product.quantity}</span>
-                  <span className="w-1/5 text-center text-sm font-semibold">${product.price * product.quantity}</span>
+                  <span className="w-1/5 text-center text-sm font-semibold">
+                    ${numberFormat.format(product.price * product.quantity)}
+                  </span>
                 </div>
               ))}
               <Link to="/" className="mt-10 text-sm font-semibold text-blue-600">
@@ -52,7 +56,7 @@ const CartDetail = () => {
                 <button onClick={clear}>Limpiar</button>
               </div>
               <div className="flex flex-col items-end">
-                <h3 className="px-6 py-2 text-2xl font-semibold">Total: ${totalPrice()}</h3>
+                <h3 className="px-6 py-2 text-2xl font-semibold">Total: ${numberFormat.format(totalPrice())}</h3>
                 <Link
                   to={'/checkout'}
                   className="rounded-3xl border bg-blue-600 px-8 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:bg-gray-400"

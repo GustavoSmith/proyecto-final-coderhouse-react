@@ -23,7 +23,7 @@ const sendEmail = async (id, customerInfo, navigate) => {
     buyerPhone: customerInfo.buyer.phone,
     buyerAddress: customerInfo.buyer.address,
     time: customerInfo.date,
-    total: customerInfo.total,
+    total: numberFormat.format(customerInfo.total),
     message: message,
   };
 
@@ -190,7 +190,7 @@ const Checkout = () => {
           htmlFor="inputAddress"
           className="col-span-1 flex flex-col gap-2 text-center text-sm font-semibold text-blue-600 md:col-span-6"
         >
-          Dirección
+          Dirección*
           <input
             type="text"
             id="inputAddress"
