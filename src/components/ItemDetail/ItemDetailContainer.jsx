@@ -31,9 +31,9 @@ const ItemDetailContainer = () => {
   }, [prodId]);
 
   return (
-    <div className="flex min-h-[86vh] flex-col items-center justify-center p-16">
+    <section className="flex min-h-[86vh] flex-col items-center justify-center p-16">
       {isLoading ? <Spinner /> : product ? <ItemDetail product={product} /> : <NotFound />}
-    </div>
+    </section>
   );
 };
 

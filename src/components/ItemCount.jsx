@@ -19,7 +19,7 @@ const ItemCount = ({ product }) => {
     }
   };
 
-  const purchaseBtnStyle = 'rounded-xl border border-black border-solid px-6 my-2';
+  const purchaseBtnStyle = `rounded-xl border border-black border-solid px-6 my-2 disabled:opacity-50 disabled:cursor-not-allowed`;
 
   return (
     <>
@@ -33,7 +33,7 @@ const ItemCount = ({ product }) => {
           <button className={purchaseBtnStyle}>Finalizar compra</button>
         </Link>
       ) : (
-        <button onClick={finishPurchase} className={purchaseBtnStyle}>
+        <button onClick={finishPurchase} className={purchaseBtnStyle} disabled={product.stock == 0}>
           Agregar al carrito
         </button>
       )}

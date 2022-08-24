@@ -4,6 +4,8 @@ import { CartContext } from '../../context/CartContext';
 
 const CartDetail = () => {
   const { cart, removeFromCart, clear, totalPrice } = useContext(CartContext);
+  const currencyOptions = { style: 'currency', currency: 'ARS' };
+  const numberFormat = new Intl.NumberFormat('es', currencyOptions);
   return (
     <div className="container mx-auto mt-10">
       <div className="my-10 flex shadow-md">
@@ -38,7 +40,7 @@ const CartDetail = () => {
                       </div>
                     </div>
                   </div>
-                  <span className="w-1/5 text-center text-sm font-semibold">${product.price}</span>
+                  <span className="w-1/5 text-center text-sm font-semibold">${numberFormat.format(product.price)}</span>
                   <span className="w-1/5 text-center text-sm font-semibold">{product.quantity}</span>
                   <span className="w-1/5 text-center text-sm font-semibold">${product.price * product.quantity}</span>
                 </div>

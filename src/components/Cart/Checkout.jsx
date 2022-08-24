@@ -7,10 +7,12 @@ import { DateTime } from 'luxon';
 import Swal from 'sweetalert2';
 
 const sendEmail = async (id, customerInfo, navigate) => {
+  const currencyOptions = { style: 'currency', currency: 'ARS' };
+  const numberFormat = new Intl.NumberFormat('es', currencyOptions);
   let message = '';
   customerInfo.items
-    .map((item) => {
-      message += `<p>${item.title}, Precio: $${item.price}, Unidades: ${item.quantity} </p>`;
+    .map(({ title, price, quantity }) => {
+      message += `<p>${title}, Precio: $ ${numberFormat.format(price)}, Unidades: ${quantity} </p>`;
     })
     .join('\n');
 
